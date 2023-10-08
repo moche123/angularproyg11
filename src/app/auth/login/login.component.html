@@ -1,0 +1,61 @@
+<div class="form-container">
+  <h1 class="login-form-title">Login</h1>
+  <form [formGroup]="myForm" (submit)="login()">
+    <div class="wrap-input mb-4">
+      <span class="label-input">Email</span>
+      <input
+        class="form-control"
+        type="email"
+        formControlName="email"
+        placeholder="example@gmail.com"
+      />
+      <p class="text-danger d-block" *ngIf="fieldIsInvalidReactive('email')">
+        {{ fieldErrors("email")!["email"] ? "Email is not valid" : "" }}
+        {{ fieldErrors("email")!["required"] ? "Email is required" : "" }}
+      </p>
+    </div>
+
+    <div class="wrap-input">
+      <span class="label-input">Password</span>
+      <input
+        class="form-control"
+        type="password"
+        formControlName="password"
+        autocomplete="off"
+        placeholder="min 6 dígitos"
+      />
+
+      <p class="text-danger d-block" *ngIf="fieldIsInvalidReactive('password')">
+        {{
+          fieldErrors("password")!["minlength"]
+            ? "Password is between 1 and 6"
+            : ""
+        }}
+        {{ fieldErrors("password")!["required"] ? "Password is required" : "" }}
+      </p>
+    </div>
+
+    <div class="button-container">
+      <button
+        class="btn mt-3"
+        type="submit"
+        [disabled]="myForm.invalid"
+        [ngClass]="{
+          'btn-primary': !myForm.invalid,
+          'btn-secondary': myForm.invalid
+        }"
+      >
+        Inciar sesión
+      </button>
+
+      <button class="btn mt-3 btn-danger" type="button">
+        Otro botón cualquiera
+      </button>
+    </div>
+  </form>
+  <div class="crearCuenta mt-2">
+    <span class="txt1 p-b-17"> ¿No tienes cuenta? </span>
+    |
+    <a routerLink="/auth/register" class="txt2"> Crear una aquí </a>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="form-container">
+    <form [formGroup]="myForm" (ngSubmit)="register()" class="form bg-warning p-5">
+        <h1 class="login-form-title">
+          Register
+        </h1>
+
+        <div class="wrap-input">
+            <span class="label-input">Name</span>
+            <input class="form-control" type="text" formControlName="name" placeholder="Carlos">
+          </div>
+          <p class="text-danger d-block" *ngIf="fieldIsInvalidReactive('name')">
+              {{ fieldErrors('name')!['required'] ? 'Name is required' : ''  }}
+          </p>
+    
+        <div class="wrap-input">
+          <span class="label-input">Email</span>
+          <input class="form-control" type="email" formControlName="email" placeholder="example@gmail.com">
+        </div>
+        <p class="text-danger d-block" *ngIf="fieldIsInvalidReactive('email')">
+            {{ fieldErrors('email')!['email'] ? 'Email is not valid' : '' }}
+            {{ fieldErrors('email')!['required'] ? 'Email is required' : ''  }}
+        </p>
+    
+        <div class="wrap-input">
+          <span class="label-input">Password</span>
+          <input class="form-control" type="password" formControlName="password" autocomplete="off"
+            placeholder="min 6 dígitos">
+    
+         
+        </div>
+        <p class="text-danger d-block" *ngIf="fieldIsInvalidReactive('password')">
+            {{ fieldErrors('password')!['minlength'] ? 'Password is between 1 and 6' : '' }}
+            {{ fieldErrors('password')!['required'] ? 'Password is required' : ''  }}
+        </p>
+    
+        <div class="container-login-form-btn">
+          <div class="wrap-login-form-btn">
+            <div class="login-form-bgbtn"></div>
+            <button class="btn" type="submit" [disabled]="myForm.invalid" 
+            [ngClass]="{'btn-primary': !myForm.invalid,'btn-secondary': myForm.invalid}">
+              Inciar sesión
+            </button>
+          </div>
+        </div>
+  
+  </form>
+  <div class="crearCuenta mt-2">
+    <span class="txt1 p-b-17">
+      ¿Ya tienes cuenta? 
+    </span>
+    | 
+    <a routerLink="/auth/login" class="txt2">
+       Ingresa desde aqui
+    </a>
+  </div>
+</div>

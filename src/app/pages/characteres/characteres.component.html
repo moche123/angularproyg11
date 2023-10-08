@@ -1,0 +1,18 @@
+<h1>PERSONAJES</h1>
+
+<div class="characteres-container">
+    <div class="characteres-container__item text-center" *ngFor="let character of obsCharacteres$ | async">
+      <h4>
+        {{character.name}}
+      </h4>
+      <img [src]="character.image" appImgBroken/>
+      <p class="mt-1 mb-0 text-success status">
+
+          {{ character.status }}
+      </p>
+      <a class="btn btn-danger" (click)="addFavorite(character)">
+        <!-- <i class="fa-solid fa-add"></i> -->
+        <i class="fa-solid fa-address-book"></i>
+      </a>
+    </div>
+</div>
