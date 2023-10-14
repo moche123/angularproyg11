@@ -58,4 +58,9 @@
     |
     <a routerLink="/auth/register" class="txt2"> Crear una aquí </a>
   </div>
+  <div class="mensaje-erroneo" *ngIf="messages.length>0">
+    <p *ngFor="let mssg of messages" class="margin-mesaje-parrafo">
+      {{mssg}}
+    </p>
+  </div>
 </div>

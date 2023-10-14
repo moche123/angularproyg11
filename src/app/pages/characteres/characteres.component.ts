@@ -22,7 +22,20 @@ export class CharacteresComponent implements OnInit {
   }
 
   addFavorite(character:any){
-    this._router.navigateByUrl('/pages/favorites')
+    const body = {
+      IdCharacter: character.id,
+      IdUser: localStorage.getItem('userId'),
+      nameCharacter: character.name,
+      caracterUrlImagen: character.image,
+      token: localStorage.getItem('token')
+    }
+
+    this._pagesService.addFavorite(body).subscribe(ok => {
+
+      if(ok === true ){
+        this._router.navigateByUrl('/pages/favorites');
+      }
+    })
   }
 
 }

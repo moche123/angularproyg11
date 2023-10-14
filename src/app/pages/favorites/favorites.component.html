@@ -1,14 +1,11 @@
 <h1>FAVORITOS</h1>
 <div class="characteres-container">
-    <div class="characteres-container__item text-center" *ngFor="let character of obsCharacteres$ | async">
+    <div class="characteres-container__item text-center" *ngFor="let character of favorites$ | async">
       <h4>
-        {{character.name}}
+        {{character.nameCharacter}}
       </h4>
-      <img [src]="character.image" appImgBroken/>
-      <p class="mt-1 mb-0 text-success status">
+      <img [src]="character.caracterUrlImagen" appImgBroken/>
 
-          {{ character.status }}
-      </p>
       <a class="btn btn-danger" (click)="deleteFavorite(character)">
         <!-- <i class="fa-solid fa-add"></i> -->
         <i class="fa-solid fa-address-book"></i>

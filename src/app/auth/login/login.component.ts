@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,9 +9,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  public messages:string[] = [];
   constructor( 
     private _fb:FormBuilder,
-    // private _authService: AuthService,
+    private _authService: AuthService,
     private _router:Router
    ){}
 
@@ -21,9 +23,52 @@ export class LoginComponent {
   })
 
 
-  public login(){
-    console.log(this.myForm.value)
-    this._router.navigateByUrl('/pages')
+  login(){
+
+    const { email,password } = this.myForm.value
+
+    this._authService.login(email,password)
+    .subscribe( (ok:any) => {
+      if(ok === true){
+        // localStorage.setItem('token')
+        this._router.navigateByUrl('/pages')
+      }else{
+        //TODO: mostrar mensaje de error
+        //valida los errores (validaciones) desde la base de datos
+        if(ok.msg){
+          setTimeout(() => {
+            this.messages.push(ok.msg) ;
+          }, 300);
+
+          setTimeout(()=>{
+            this.messages=[];
+          },4000)
+        }
+       if(ok.errors?.email){
+        setTimeout(() => {
+          this.messages.push(ok.errors.email.msg);
+        }, 300);
+
+        setTimeout(()=>{
+          this.messages=[];
+        },4000)
+       }
+
+       if(ok.errors?.password){
+        setTimeout(() => {
+          this.messages.push(ok.errors.password.msg);
+        }, 300);
+
+        setTimeout(()=>{
+          this.messages=[];
+        },4000)
+       }
+
+      }
+    })
+
+
+
   }
 
   fieldIsInvalidReactive(field:string): boolean{ //! BOOLEANO

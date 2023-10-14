@@ -8,6 +8,8 @@ import { PagesComponent } from './pages.component';
 import { SharedModule } from '../shared/shared.module';
 import { PagesService } from './services/pages.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../auth/services/auth.service';
+import { PagesGuard } from './guards/pages.guard';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [
-    PagesService
+    PagesService,
+    AuthService,
+    PagesGuard
   ]
 })
 export class PagesModule { }
