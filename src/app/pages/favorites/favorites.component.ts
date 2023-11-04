@@ -11,6 +11,7 @@ import Swal from 'sweetalert2'
 })
 export class FavoritesComponent {
   public favorites$: Observable<any[]> = new Observable();
+  INNERWIDTH = innerWidth;
 
   constructor(
     private _pagesService: PagesService,
@@ -32,4 +33,8 @@ export class FavoritesComponent {
       this._router.navigateByUrl('/pages/characteres')
     })
   }
+
+  // private useDom(){
+  //   const padding = this.INNERWIDTH+20;
+  // }
 }
