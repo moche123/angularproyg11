@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
@@ -22,15 +22,21 @@ export class PagesService {
 
     return this._http.post<any>(url, body)
       .pipe(
-        map(resp => resp.ok),
+        map(resp => {
+          if(resp.error){
+            throw new Error('No condition achieved');
+          }
+          return resp.ok
+        }),
         catchError(err => {
-          // alert(err.error.msg)
+          // alert(err.error.msg).
+          
           Swal.fire(
             'Oops',
-            err.error.msg,
+            err?.error?.msg || 'Error no condition achieved',
             'error'
           )
-          return of(err.error)
+          return of(err.error || 'Error no condition achieved')
         })
       )
   }
